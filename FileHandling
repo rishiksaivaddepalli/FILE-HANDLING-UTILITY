@@ -60,7 +60,7 @@ public class FileHandling{
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        String fileName = "example.txt"; // Name of the file to be used
+        String fileName = "FILEHANDLINGFILE.txt"; // Name of the file to be used
 
         // Writing to the file
         System.out.println("Enter content to write to the file:");
