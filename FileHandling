@@ -3,13 +3,10 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Scanner;
 
-public class FileHandling{
+public class FileHandling {
 
-    /**
+    /*
      * Writes the specified content to a file.
-     *
-     * @param fileName The name of the file to write to.
-     * @param content  The content to write to the file.
      */
     public static void writeToFile(String fileName, String content) {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName))) {
@@ -20,10 +17,9 @@ public class FileHandling{
         }
     }
 
-    /**
-     * Reads the content from a specified file and prints it to the console.
-     *
-     * @param fileName The name of the file to read from.
+    /*
+     * Reads the content from a file and prints it .
+   
      */
     public static void readFromFile(String fileName) {
         try (BufferedReader reader = new BufferedReader(new FileReader(fileName))) {
@@ -37,19 +33,20 @@ public class FileHandling{
         }
     }
 
-    /**
-     * Modifies the content of a specified file by replacing old content with new content.
-     *
-     * @param fileName   The name of the file to modify.
-     * @param oldContent The content to be replaced.
-     * @param newContent The new content to replace the old content.
+    /*
+     * Modifies the DATA of a specified file by replacing old DATA with new DATA.
+    
      */
     public static void modifyFile(String fileName, String oldContent, String newContent) {
         try {
             // Read all lines from the file
             String content = new String(Files.readAllBytes(Paths.get(fileName)));
+            // Debugging: Print original content
+            System.out.println("Original content: " + content);
             // Replace old content with new content
             content = content.replace(oldContent, newContent);
+            // Debugging: Print modified content
+            System.out.println("Modified content: " + content);
             // Write the modified content back to the file
             writeToFile(fileName, content);
             System.out.println("File modified successfully.");
@@ -60,7 +57,7 @@ public class FileHandling{
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        String fileName = "FILEHANDLINGFILE.txt"; // Name of the file to be used
+        String fileName = "FILEHANDLE.txt"; // Name of the file to be used
 
         // Writing to the file
         System.out.println("Enter content to write to the file:");
