@@ -1,0 +1,85 @@
+import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.Scanner;
+
+public class FileHandlingUtility {
+
+    /**
+     * Writes the specified content to a file.
+     *
+     * @param fileName The name of the file to write to.
+     * @param content  The content to write to the file.
+     */
+    public static void writeToFile(String fileName, String content) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName))) {
+            writer.write(content);
+            System.out.println("Content written to file: " + fileName);
+        } catch (IOException e) {
+            System.err.println("Error writing to file: " + e.getMessage());
+        }
+    }
+
+    /**
+     * Reads the content from a specified file and prints it to the console.
+     *
+     * @param fileName The name of the file to read from.
+     */
+    public static void readFromFile(String fileName) {
+        try (BufferedReader reader = new BufferedReader(new FileReader(fileName))) {
+            String line;
+            System.out.println("Content of the file: " + fileName);
+            while ((line = reader.readLine()) != null) {
+                System.out.println(line);
+            }
+        } catch (IOException e) {
+            System.err.println("Error reading from file: " + e.getMessage());
+        }
+    }
+
+    /**
+     * Modifies the content of a specified file by replacing old content with new content.
+     *
+     * @param fileName   The name of the file to modify.
+     * @param oldContent The content to be replaced.
+     * @param newContent The new content to replace the old content.
+     */
+    public static void modifyFile(String fileName, String oldContent, String newContent) {
+        try {
+            // Read all lines from the file
+            String content = new String(Files.readAllBytes(Paths.get(fileName)));
+            // Replace old content with new content
+            content = content.replace(oldContent, newContent);
+            // Write the modified content back to the file
+            writeToFile(fileName, content);
+            System.out.println("File modified successfully.");
+        } catch (IOException e) {
+            System.err.println("Error modifying file: " + e.getMessage());
+        }
+    }
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        String fileName = "example.txt"; // Name of the file to be used
+
+        // Writing to the file
+        System.out.println("Enter content to write to the file:");
+        String contentToWrite = scanner.nextLine();
+        writeToFile(fileName, contentToWrite);
+
+        // Reading from the file
+        readFromFile(fileName);
+
+        // Modifying the file
+        System.out.println("Enter the content to be replaced:");
+        String oldContent = scanner.nextLine();
+        System.out.println("Enter the new content:");
+        String newContent = scanner.nextLine();
+        modifyFile(fileName, oldContent, newContent);
+
+        // Reading the modified file
+        readFromFile(fileName);
+
+        scanner.close();
+    }
+}
